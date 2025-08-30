@@ -45,6 +45,9 @@ python manage.py migrate
 python manage.py seed_data
 python manage.py runserver
 
+
+
+
 employee_management_system/
 ├── employee_project/
 │   ├── __init__.py
