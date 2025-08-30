@@ -23,7 +23,8 @@ A **Django-based Employee Management System** featuring REST APIs, PostgreSQL in
 ## Tech Stack
 
 - **Backend:** Django 4.x, Django REST Framework  
-- **Database:** PostgreSQL  
+- **Database:** PostgreSQL  http://127.0.0.1:8000/swagger/
+
 - **Authentication:** DRF Token Authentication / Simple JWT  
 - **Visualization (Optional):** Chart.js  
 - **Tools & Libraries:** drf-yasg, django-environ, Faker, django-filter, psycopg2-binary  
@@ -36,3 +37,54 @@ A **Django-based Employee Management System** featuring REST APIs, PostgreSQL in
 ```bash
 git clone https://github.com/<your-username>/employee-management-system.git
 cd employee-management-system
+python -m venv venv
+.\venv\Scripts\activate  # Windows
+# source venv/bin/activate  # Linux/Mac
+pip install -r requirements.txt
+python manage.py migrate
+python manage.py seed_data
+python manage.py runserver
+
+employee_management_system/
+├── employee_project/
+│   ├── __init__.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── employees/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── urls.py
+│   ├── views.py
+│   └── management/
+│       └── commands/
+│           ├── __init__.py
+│           └── seed_data.py
+├── attendance/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── views.py
+├── performance/
+│   ├── __init__.py
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── urls.py
+│   └── views.py
+├── templates/
+│   └── charts.html
+├── .env
+├── .env.example
+├── manage.py
+├── requirements.txt
+└── README.md
+
+
