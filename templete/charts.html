@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Analytics</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .chart-container {
+            width: 45%;
+            height: 400px;
+            float: left;
+            margin: 20px;
+        }
+        .clear {
+            clear: both;
+        }
+    </style>
+</head>
+<body>
+    <h1>Employee Analytics</h1>
+    
+    <div class="chart-container">
+        <h2>Employees per Department</h2>
+        <canvas id="departmentChart"></canvas>
+    </div>
+    
+    <div class="chart-container">
+        <h2>Monthly Attendance Overview</h2>
+        <canvas id="attendanceChart"></canvas>
+    </div>
+    
+    <div class="clear"></div>
+    
+    <script>
+        fetch('/api/employees/analytics/departments/')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('departmentChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'pie',
+                    data: {
+                        labels: data.labels,
+                        datasets: [{
+                            data: data.data,
+                            backgroundColor: [
+                                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', '#FF9F40'
+                            ]
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            });
+        
+        fetch('/api/employees/analytics/attendance/')
+            .then(response => response.json())
+            .then(data => {
+                const ctx = document.getElementById('attendanceChart').getContext('2d');
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: data.dates,
+                        datasets: [
+                            {
+                                label: 'Present',
+                                data: data.present,
+                                backgroundColor: '#4BC0C0'
+                            },
+                            {
+                                label: 'Absent',
+                                data: data.absent,
+                                backgroundColor: '#FF6384'
+                            },
+                            {
+                                label: 'Late',
+                                data: data.late,
+                                backgroundColor: '#FFCE56'
+                            }
+                        ]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        scales: {
+                            x: {
+                                stacked: true
+                            },
+                            y: {
+                                stacked: true
+                            }
+                        }
+                    }
+                });
+            });
+    </script>
+</body>
+</html>
